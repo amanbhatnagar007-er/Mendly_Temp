@@ -1,0 +1,20 @@
+services:
+  - type: web
+    name: mendaly-api
+    runtime: docker
+    plan: starter
+    dockerfilePath: ./Dockerfile
+    healthCheckPath: /healthz
+    disk:
+      name: mendaly-data
+      mountPath: /var/data
+      sizeGB: 1
+    envVars:
+      - key: MENDALY_REQUIRE_AUTH
+        value: "1"
+      - key: DATABASE_URL
+        value: sqlite:////var/data/mendaly.db
+      - key: MENDALY_ACCESS_USERNAME
+        sync: false
+      - key: MENDALY_ACCESS_PASSWORD
+        sync: false
